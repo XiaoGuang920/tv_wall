@@ -1,0 +1,645 @@
+#teacher-home-body {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-color: #141114;
+    background-image: linear-gradient(335deg, black 23px, transparent 23px), linear-gradient(155deg, black 23px, transparent 23px), linear-gradient(335deg, black 23px, transparent 23px), linear-gradient(155deg, black 23px, transparent 23px);
+    background-size: 58px 58px;
+    background-position: 0px 2px, 4px 35px, 29px 31px, 34px 6px;
+    overflow: hidden;
+}
+
+#top-left-frame {
+    position: absolute;
+    top: 2.5%;
+    left: 2.5%;
+    width: 45%;
+    height: 45%;
+    padding: 0 1%;
+    border-radius: 15px;
+    background-color: #3B3838;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#down-left-frame {
+    position: absolute;
+    top: 52.5%;
+    left: 2.5%;
+    width: 45%;
+    height: 45%;
+    padding: 0 1%;
+    border-radius: 15px;
+    background-color: #3B3838;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#top-right-frame {
+    position: absolute;
+    top: 2.5%;
+    left: 52.5%;
+    width: 45%;
+    height: 45%;
+    padding: 0 1%;
+    border-radius: 15px;
+    background-color: #3B3838;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#down-right-frame {
+    position: absolute;
+    top: 52.5%;
+    left: 52.5%;
+    width: 45%;
+    height: 45%;
+    padding: 0 1%;
+    border-radius: 15px;
+    background-color: #3B3838;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.top-left-frame-leave-activate, .top-left-frame-enter-activate {
+    transition: all 1s;
+}
+
+.top-left-frame-enter-from, .top-left-frame-leave-to {
+    opacity: 0;
+}
+
+.top-left-frame-enter-to, .top-left-frame-leave-from {
+    opacity: 1;
+}
+
+.top-left-frame-enter-from {
+    transform: translateX(-100%);
+}
+
+.top-left-frame-leave-to {
+    transform: translateY(-100%);
+}
+
+.down-left-frame-leave-activate, .down-left-frame-enter-activate {
+    transition: all 1s;
+}
+
+.down-left-frame-enter-from, .down-left-frame-leave-to {
+    opacity: 0;
+}
+
+.down-left-frame-enter-to, .down-left-frame-leave-from {
+    opacity: 1;
+}
+
+.down-left-frame-enter-from {
+    transform: translateX(-100%);
+}
+
+.down-left-frame-leave-to {
+    transform: translateY(100%);
+}
+
+.top-right-frame-leave-activate, .top-right-frame-enter-activate {
+    transition: all 1s;
+}
+
+.top-right-frame-enter-from, .top-right-frame-leave-to {
+    opacity: 0;
+}
+
+.top-right-frame-enter-to, .top-right-frame-leave-from {
+    opacity: 1;
+}
+
+.top-right-frame-enter-from {
+    transform: translateX(100%);
+}
+
+.top-right-frame-leave-to {
+    transform: translateY(-100%);
+}
+
+.down-right-frame-leave-activate, .top-right-frame-enter-activate {
+    transition: all 1s;
+}
+
+.down-right-frame-enter-from, .down-right-frame-leave-to {
+    opacity: 0;
+}
+
+.down-right-frame-enter-to, .down-right-frame-leave-from {
+    opacity: 1;
+}
+
+.down-right-frame-enter-from {
+    transform: translateX(100%);
+}
+
+.down-right-frame-leave-to {
+    transform: translateY(100%);
+}
+
+.teacher-block {
+    position: absolute;
+    width: 12.5%;
+    height: 50%;
+}
+
+.teacher-block:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+
+.teacher-block:nth-child(2) {
+    top: 0;
+    left: 12.5%;
+}
+
+.teacher-block:nth-child(3) {
+    top: 0;
+    left: 25%;
+}
+
+.teacher-block:nth-child(4) {
+    top: 0;
+    left: 37.5%;
+}
+
+.teacher-block:nth-child(5) {
+    top: 0;
+    left: 50%;
+}
+
+.teacher-block:nth-child(6) {
+    top: 0;
+    left: 62.5%;
+}
+
+.teacher-block:nth-child(7) {
+    top: 0;
+    left: 75%;
+}
+
+.teacher-block:nth-child(8) {
+    top: 0;
+    left: 87.5%;
+}
+
+.teacher-block:nth-child(9) {
+    top: 50%;
+    left: 0;
+}
+
+.teacher-block:nth-child(10) {
+    top: 50%;
+    left: 12.5%;
+}
+
+.teacher-block:nth-child(11) {
+    top: 50%;
+    left: 25%;
+}
+
+.teacher-block:nth-child(12) {
+    top: 50%;
+    left: 37.5%;
+}
+
+.teacher-block:nth-child(13) {
+    top: 50%;
+    left: 50%;
+}
+
+.teacher-block:nth-child(14) {
+    top: 50%;
+    left: 62.5%;
+}
+
+.teacher-block:nth-child(15) {
+    top: 50%;
+    left: 75%;
+}
+
+.teacher-block:nth-child(16) {
+    top: 50%;
+    left: 87.5%;
+}
+
+.teacher-frame {
+    width: 95%;
+    height: 80%;
+    margin-top: 15%;
+    margin-left: 2.5%;
+    border-radius: 20px;
+    background-color: rgba(127, 132, 135, 0.7);
+    overflow: hidden;
+}
+
+.duck {
+    --c: #f9d41f;
+    --b: #f09123;
+    margin: auto auto 0;
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    z-index: 0;
+    cursor: none;
+}
+
+.duck:after {
+    content: "";
+    position: absolute;
+    width: 40%;
+    height: 20%;
+    left: 35%;
+    top: 30%;
+    z-index: -1;
+    background: 
+        radial-gradient(violet 63%, #0000 71%) 20% 20%/10% 20%,
+        linear-gradient(violet 0 0) 50% 71%/10% 10%,
+        conic-gradient(violet 45deg, #0000 0) 69% 50%/ 30% 30%,
+        conic-gradient(from -19deg, violet 45deg, #0000 0) 20% 80%/ 30% 30%,
+        linear-gradient(violet 0 0) 50% 29%/5% 20%;
+    background-repeat: no-repeat;
+    filter: 
+        drop-shadow(0 0 0 #24e0e9) 
+        drop-shadow(0 0 0 #00d18f)    
+        drop-shadow(0 0 0 #f7d865) 
+        drop-shadow(0 0 0 #fc639d)   
+        drop-shadow(0 0 0 #00d18f) 
+        drop-shadow(0 0 0 #24e0e9);
+}
+
+.duck:before {
+    content: "";
+    position: absolute;
+    background: var(--c);
+    border: 9px solid var(--b);
+    border-bottom: 0;
+    inset: 53% 8% 0% 8%;
+    border-radius: 999px 999px 0 0;
+}
+
+.duck .arms:before {
+    content: "";
+    position: absolute;
+    width: 15%;
+    height: 32%;
+    background: var(--c);
+    box-sizing: border-box;
+    left: 17%;
+    bottom: 2%;
+    border-radius: 30% 35% 50% 50%;
+    border: 9px solid var(--b);
+    transform: rotate(33deg);
+    transform-origin: top left;
+}
+
+.duck .arms:after {
+    content: "";
+    position: absolute;
+    width: 12%;
+    height: 28%;
+    background: var(--c);
+    box-sizing: border-box;
+    right: 15%;
+    bottom: 5%;
+    border-radius: 30% 35% 50% 50%;
+    border: 9px solid var(--b);
+    transform: rotate(-33deg);
+    z-index: -1;
+    transform-origin: top right;
+}
+
+.duck .head:before,
+.duck .head:after {
+    content: "";
+    position: absolute;
+    inset: 12% 10% 14% 10%;
+    background: var(--c);
+    border-radius: 50%;
+    border: 9px solid var(--b);
+    border-bottom-color: #0000;
+    z-index: 3;
+}
+
+.duck .head:before {
+    clip-path: polygon(0 100%,100% 100%,100% 30%,70% 15%,57% 28%,40% 18%,23% 30%,0 17%);
+}
+
+.duck .head:after {
+    clip-path: polygon(0 0,100% 0,100% 30%,93% 30%,70% 15%,57% 28%,40% 18%,23% 30%,0 17%);
+    transform: rotate(0deg);
+    transform-origin: 94% 27%;
+    transition: .5s;
+}
+
+.duck .eyes:before,
+.duck .eyes:after {
+    content: "";
+    position: absolute;
+    width: 9%;
+    height: 10%;
+    background: 
+        radial-gradient(farthest-side, #fff 94%, #0000) 20% 16%
+        content-box no-repeat,#000;
+    background-size: 30% 30%;
+    border-radius: 50%;
+    left: 32%;
+    top: 44%;
+    box-sizing: border-box;
+    padding: 1%;
+    transform: rotate(6deg);
+    z-index: 4;
+    transition: 0.4s;
+}
+
+.duck .eyes:after {
+    width: 8%;
+    left: auto;
+    right: 20%;
+    top: 43%;
+    transform: rotate(-6deg);
+}
+
+.duck .mouth:before {
+    content: "";
+    position: absolute;
+    z-index: 9;
+    inset: 57% 28% 33% 43%;
+    border-radius: 25px 25px 42px 49px;
+    padding: 2.5%;
+    border: 6px solid #c23a00;
+    background: linear-gradient(#791004 0 0) content-box, #f55e1e;
+    transition: 0.4s linear;
+}
+
+.duck .mouth:after {
+    content: "";
+    position: absolute;
+    width: 24%;
+    height: 4.9%;
+    right: 26%;
+    top: 57%;
+    box-sizing: border-box;
+    border: 5px solid #c23a00;
+    border-bottom-color: #791004;
+    border-left: 0;
+    background: #f55e1e;
+    border-radius: 0 50% 50% 0;
+    z-index: 10;
+}
+
+.duck .mouth i {
+    position: absolute;
+    width: 14%;
+    height: 14%;
+    border: 6px solid #c23a00;
+    border-right: 0;
+    border-bottom: 0;
+    border-radius: 41% 0 0 0;
+    background: #f55e1e;
+    transform: rotate(45deg);
+    clip-path: polygon(0 0, 96% 0, -4% 100%);
+    top: 51.5%;
+    left: 51%;
+    z-index: 11;
+}
+
+#duck {
+    position: absolute;
+    top: -9999px;
+    cursor: none;
+}
+
+
+
+#duck:checked + .duck:after {
+    filter: 
+        drop-shadow(43px -23px 0 #24e0e9) 
+        drop-shadow(-59px 4px 0 #00d18f)    
+        drop-shadow(41px 62px 0 #f7d865) 
+        drop-shadow(67px -68px 0 #fc639d)   
+        drop-shadow(-100px -36px 0 #00d18f) 
+        drop-shadow(40px -55px 0 #24e0e9);
+    top: 0%;
+    opacity: 0;
+    transition: 0.5s 0.6s, opacity 0.3s 0.8s;
+}
+
+#duck:checked + .duck .head:after {
+    transform: rotate(120deg);
+    transition: .5s .4s;
+}
+
+#duck:checked + .duck .eyes:before,
+#duck:checked + .duck .eyes:after {
+    background-size: 100% 100%;
+    transform: scale(1.1) rotate(6deg);
+    transition: 0.4s cubic-bezier(0.12, 0.69, 0.72, 2.2);
+}
+
+#duck:checked + .duck .eyes:after {
+    transform: scale(1.1) rotate(-6deg);
+}
+
+#duck:checked + .duck .mouth:before {
+    inset: 57% 28% 10% 43%;
+    transition: 0.4s cubic-bezier(0.12, 0.69, 0.72, 2.2);
+}
+
+#duck:checked + .duck .arms:before {
+    transform: rotate(33.1deg);
+    transition: cubic-bezier(0, 200, 1, 200) 0.4s;
+}
+
+#duck:checked + .duck .arms:after {
+    transform: rotate(-33.1deg);
+    transition: cubic-bezier(0, 200, 1, 200) 0.4s;
+}
+
+#decoration {
+    position: absolute;
+    right: 6%;
+    bottom: -1%;
+    width: 14%;
+}
+
+.teacher-avatar {
+    width: 100%;
+    height: 70%;
+    padding: 10%;
+    position: relative;
+    overflow: hidden;
+    transition: all .3s ease-in;
+}
+
+.teacher-avatar:hover {
+    padding: 5%;
+    transition: all .3s ease-in;
+}
+
+.teacher-avatar img {
+    width: 100%;
+}
+
+.teacher-shadow {
+    margin-top: 3%;
+    width: 100%;
+    height: 8%;
+    border-radius: 100%;
+    background-color: #413F42;
+}
+
+.teacher-data-block {
+    width: 100%;
+    height: 30%;
+    border-radius: 20px;
+}
+
+.teacher-block:nth-child(even) .teacher-data-block {
+    background-color: #707070;
+    opacity: 0.8;
+    background: linear-gradient(135deg, #79797955 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(225deg, #797979 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(315deg, #79797955 25%, transparent 25%) 0px 0/ 20px 20px, linear-gradient(45deg, #797979 25%, #707070 25%) 0px 0/ 20px 20px;
+}
+
+.teacher-block:nth-child(odd) .teacher-data-block {
+    background-color: #707070;
+    opacity: 0.8;
+    background-image:  linear-gradient(30deg, #797979 12%, transparent 12.5%, transparent 87%, #797979 87.5%, #797979), linear-gradient(150deg, #797979 12%, transparent 12.5%, transparent 87%, #797979 87.5%, #797979), linear-gradient(30deg, #797979 12%, transparent 12.5%, transparent 87%, #797979 87.5%, #797979), linear-gradient(150deg, #797979 12%, transparent 12.5%, transparent 87%, #797979 87.5%, #797979), linear-gradient(60deg, #79797977 25%, transparent 25.5%, transparent 75%, #79797977 75%, #79797977), linear-gradient(60deg, #79797977 25%, transparent 25.5%, transparent 75%, #79797977 75%, #79797977);
+    background-size: 20px 35px;
+    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+}
+
+.teacher-name {
+    height: 50%;
+    font-size: 1.5vw;
+    font-weight: bold;
+    text-align: center;
+    line-height: 2em;
+    color: white;
+}
+
+.teacher-office {
+    height: 50%;
+    font-size: 1vw;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    line-height: 2.5em;
+}
+
+.teacher-frame-avatar {
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 100%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 10px;
+}
+
+.teacher-frame-office, .teacher-frame-telephone, .teacher-frame-email {
+    font-size: 1vw;
+    font-weight: bold;
+    line-height: 2em;
+    color: white;
+}
+
+.teacher-frame-email {
+    width: 100%;
+}
+
+.teacher-frame-name {
+    position: relative;
+    width: 4em;
+    height: 25%;
+    font-size: 4vw;
+    font-weight: bold;
+    line-height: 1.5em;
+    color: white;
+    margin-top: 2%;
+    border-bottom: 15px gray solid;
+}
+
+.teacher-frame-name::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 1.5em;
+    height: 15px;
+    background-color: #ff094f;
+}
+
+.teacher-frame-education, .teacher-frame-expertise {
+    font-size: 1.2vw;
+    font-weight: bold;
+    color: white;
+    line-height: 2em;
+}
+
+.teacher-frame-education {
+    border-bottom: 5px gray solid;
+}
+
+.teacher-frame-data {
+    height: 72%;
+    display: flex;
+    align-items: center;
+}
+
+.tool-choice {
+    width: 25vw;
+    height: 25vw;
+    position: absolute;
+    text-align: center;
+    user-select: none;
+    overflow: hidden;
+    z-index: 995;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tool-choice-background {
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    align-content: center;
+    justify-content: center;
+    background-image: linear-gradient(45deg, #3f51b1 0%, #5a55ae 13%, #7b5fac 25%, #8f6aae 38%, #a86aa4 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%);
+    box-shadow: 0 1vh grey;
+    transition: all 0.1s ease-out;
+}
+
+.tool-choice-background:hover {
+    transform: scale(1.2);
+    transition: all 0.1s ease-out;
+}
+
+.tool-choice-background:active {
+    transform: translateY(1vh);
+    transition: all 0.1s ease-out;
+    box-shadow: none;
+}
+
+.tool-img {
+    width: 70%;
+    position: relative;
+    top: 10%;
+}
+
+.tool-text {
+    position: relative;
+    top: 7%;
+    font-size: 2.5vw;
+    font-weight: bold;
+    background-color: #23232300;
+    color: #191919;
+    text-shadow: 2px 2px 2px rgb(53 53 53 / 50%);
+}
+
+#teacher-home-body > div:nth-child(24) > div > img {
+    margin-top: 5%;
+}

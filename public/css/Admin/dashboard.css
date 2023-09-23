@@ -1,0 +1,39 @@
+.teacher-num, .announcement-num, .album-num, .picture-num {
+    font-size: 24px;
+    padding: 1em;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+}
+
+.teacher-num {
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.announcement-num {
+    background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+}
+
+.album-num {
+    background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+
+.picture-num {
+    background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+}
+
+.icon-content {
+    font-size: 50px;
+    width: max-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.txt-content {
+    font-size: 22px;
+    margin-left: 1em;
+}

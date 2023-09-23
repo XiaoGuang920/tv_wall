@@ -1,0 +1,71 @@
+#table-tennis-game-body {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+#table-tennis-game-content {
+    width: 100%;
+    height: 100%;
+}
+
+#table-tennis-game-content canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.tool-choice {
+    width: 25vw;
+    height: 25vw;
+    position: absolute;
+    text-align: center;
+    user-select: none;
+    overflow: hidden;
+    z-index: 995;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tool-choice-background {
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    align-content: center;
+    justify-content: center;
+    background-image: linear-gradient(45deg, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%);
+    box-shadow: 0 1vh grey;
+    transition: all 0.1s ease-out;
+}
+
+.tool-choice-background:hover {
+    transform: scale(1.2);
+    transition: all 0.1s ease-out;
+}
+
+.tool-choice-background:active {
+    transform: translateY(1vh);
+    transition: all 0.1s ease-out;
+    box-shadow: none;
+}
+
+.tool-img {
+    width: 70%;
+    position: relative;
+    top: 10%;
+}
+
+.tool-text {
+    position: relative;
+    top: 7%;
+    font-size: 2.5vw;
+    font-weight: bold;
+    background-color: #23232300;
+    color: #191919;
+    text-shadow: 2px 2px 2px rgb(53 53 53 / 50%);
+}
+
+#table-tennis-game-body > div:nth-child(7) > div > img {
+    margin-top: 5%;
+}

@@ -1,0 +1,103 @@
+.album-item {
+    font-size: 20px;
+    font-weight: bold;
+    min-width: 9em;
+    max-width: 9em;
+    padding: 1em;
+    border-radius: 15px;
+    background-color: var(--light);
+    position: relative;
+    transition: background-color .3s ease-in;
+    text-align: center;
+}
+
+.album-item svg {
+    width: 7em;
+    height: 7em;
+}
+
+.album-item:hover {
+    background-color: var(--dark-grey);
+    transition: background-color .3s ease-in;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 30px;
+    background-color: var(--red);
+    color: var(--light);
+    border: 0;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    transition: background-color .3s ease-in;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-btn:hover {
+    background-color: var(--dark-red);
+    transition: background-color .3s ease-in;
+}
+
+.display-flex-between {
+    position: relative;
+}
+
+.album-upload {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 9em;
+    transform: translate(0, -50%);
+    background-color: var(--blue);
+    color: var(--light);
+    padding: 0.5em 1.5em;
+    border-radius: 10px;
+    transition: background-color .3s ease-in;
+    text-align: center;
+}
+
+.album-upload:hover {
+    background-color: var(--dark);
+    transition: background-color .3s ease-in;
+}
+
+.album-upload .fa-photo {
+    padding-right: 10px;
+} 
+
+.picture-item {
+    width: 13em;
+    background-color: white;
+    padding: 1em;
+    position: relative;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 10px;
+}
+
+.picture-item img {
+    width: 100%;
+}
+
+.picture-item .file-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info-hint-txt {
+    margin-left: 10px;
+    font-size: 24px;
+    color: var(--blue);
+}
+
+.data-tag .fa-signature,
+.data-tag .fa-clock,
+.data-tag .fa-camera-retro,
+.data-tag .fa-location-dot {
+    margin-right: 8px;
+}

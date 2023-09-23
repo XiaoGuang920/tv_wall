@@ -1,0 +1,133 @@
+.info-square {
+    font-size: 20px;
+    font-weight: bold;
+    min-width: 9em;
+    max-width: 9em;
+    padding: 1em;
+    border-radius: 15px;
+    background-color: var(--light);
+    position: relative;
+    transition: background-color .3s ease-in;
+}
+
+.info-square:hover {
+    background-color: var(--dark-grey);
+    transition: background-color .3s ease-in;
+}
+
+.info-square .img-block {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.info-square .img-block img {
+    width: 100%;
+    border-radius: 100%;
+}
+
+.info-square .name {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 30px;
+    background-color: var(--red);
+    color: var(--light);
+    border: 0;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    transition: background-color .3s ease-in;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-btn:hover {
+    background-color: var(--dark-red);
+    transition: background-color .3s ease-in;
+}
+
+.teacher-info {
+    width: 70%;
+    font-size: 18px;
+}
+
+.teacher-info .row:not(:nth-child(1)) {
+    margin-top: 1em;
+}
+
+.upload-teacher-avatar {
+    position: relative;
+    width: 15em;
+}
+
+.upload-teacher-avatar .teacher-avatar {
+    width: 15em;
+    height: 15em;
+    border-radius: 100%;
+}
+
+.teacher-avatar-upload {
+    position: absolute;
+    top: 20em;
+    left: 50%;
+    width: 9em;
+    transform: translate(-50%, -100%);
+    background-color: var(--blue);
+    color: var(--light);
+    padding: 0.5em 1.5em;
+    border-radius: 10px;
+    transition: background-color .3s ease-in;
+    text-align: center;
+}
+
+.teacher-avatar-upload:hover {
+    background-color: var(--dark);
+    transition: background-color .3s ease-in;
+}
+
+.teacher-avatar-upload .fa-photo {
+    padding-right: 10px;
+} 
+
+.add-list-block .data-input {
+    width: 12em;
+    margin-right: 1em;
+}
+
+.add-list-block .insert-btn {
+    padding: 0.5em 1em;
+    border: 0;
+    border-radius: 10px;
+    background-color: var(--blue);
+    color: var(--light);
+    font-weight: bold;
+    transition: background-color .3s ease-in;
+}
+
+.add-list-block .insert-btn:hover {
+    background-color: var(--dark);
+    transition: background-color .3s ease-in;
+}
+
+.list-data-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-top: 1em;
+}
+
+.list-data-block .list-data-text {
+    background: linear-gradient(135deg, var(--light-blue), var(--blue));
+    color: var(--light);
+    padding: 0.5em 1.5em;
+    border-radius: 15px;
+    cursor: pointer;
+}
