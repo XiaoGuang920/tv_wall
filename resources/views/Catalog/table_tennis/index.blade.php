@@ -23,31 +23,31 @@
     </div>
 
     <div v-cloak v-if="tools_tab.status" id="tools" :style="{ opacity: tools_tab.mask_opacity }"></div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '7%', left: '0%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/homePage')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '7%', left: '0%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('home')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/home.png" alt="主頁">
             <div class="tool-text">主頁</div>
         </div>
     </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '25%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/spiritGame')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '25%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('spiritGame')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/controller.png" alt="光速飛飛飛">
             <div class="tool-text">光速飛飛飛</div>
         </div>
     </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '65%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/teacherHome')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '65%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('teacher')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/teacher.png" alt="教師列表">
             <div class="tool-text">教師列表</div>
         </div>
    </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '65%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/imgWall')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '65%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('imgWall')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/photo_wall.png" alt="照片牆">
             <div class="tool-text">照片牆</div>
         </div>
     </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/announcementsList')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('announcement')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/announcement.png" alt="公告牆">
             <div class="tool-text">公告牆</div>
@@ -103,7 +103,7 @@ const app = Vue.createApp({
             _this.mouse_coordinate.x = ev.clientX;
             _this.mouse_coordinate.y = ev.clientY;
 
-            window.parent.postMessage(JSON.parse(JSON.stringify(_this.mouse_coordinate)), 'http://' + _this.server_ip + '/tv_wall/index.php?route=information/information/tvWall');
+            window.parent.postMessage(JSON.parse(JSON.stringify(_this.mouse_coordinate)), 'http://' + _this.server_ip + '/tvWall');
         },
 
         executiveFunction(ev) {
@@ -131,11 +131,11 @@ const app = Vue.createApp({
                     break;
                 
                 case 74:
-                    window.parent.postMessage(JSON.parse(JSON.stringify(true)), 'http://' + _this.server_ip + '/tv_wall/index.php?route=information/information/tvWall');
+                    window.parent.postMessage(JSON.parse(JSON.stringify(true)), 'http://' + _this.server_ip + '/tvWall');
                     break;
 
                 case 75: 
-                    window.parent.postMessage(JSON.parse(JSON.stringify(false)), 'http://' + _this.server_ip + '/tv_wall/index.php?route=information/information/tvWall');
+                    window.parent.postMessage(JSON.parse(JSON.stringify(false)), 'http://' + _this.server_ip + '/tvWall');
                     break;
             }
         },
@@ -152,6 +152,7 @@ const app = Vue.createApp({
                 success(resp) {
                     if (resp.validate) {
                         _this.server_ip = resp.server_ip;
+                        console.log(`Server IP: ${_this.server_ip}`);
                     }
                 },
                 error(msg) {
@@ -171,9 +172,9 @@ const app = Vue.createApp({
 
         goToFunction(url) {
             let _this = this
-            
-            window.parent.postMessage(url , 'http://' + _this.server_ip + '/tv_wall/index.php?route=information/information/tvWall');
-        },
+
+            window.parent.postMessage(url , 'http://' + _this.server_ip + '/tvWall');
+        }
     }
 }).mount('#table-tennis-game-body');
 </script>

@@ -571,31 +571,31 @@
     </div>
 
     <div v-cloak v-if="tools_tab.status" id="tools" :style="{ opacity: tools_tab.mask_opacity }"></div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('./home')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('home')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/home.png">
             <div class="tool-text">主頁</div>
         </div>
     </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '65%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('./teacher')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '65%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('teacher')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/teacher.png">
             <div class="tool-text">教師列表</div>
         </div>
    </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '7%', left: '50%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('./spiritGame')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '7%', left: '50%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('spiritGame')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/controller.png">
             <div class="tool-text">光速飛飛飛</div>
         </div>
     </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '75%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('./tableTennis')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '75%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('tableTennis')">
             <div class="tool-choice-background">
                 <img class="tool-img" src="/images/Catalog/table_tennis.png">
                 <div class="tool-text">打桌球</div>
             </div>
         </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('./announcement')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('announcement')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/announcement.png">
             <div class="tool-text">公告牆</div>
@@ -673,7 +673,8 @@ const app = Vue.createApp({
             album_z_index: '45',
             hover_block_position: '85vh',
             rotate_route: 0,
-            planet_index: 4
+            planet_index: 4,
+            server_ip: ''
         }
     },
     
@@ -689,7 +690,8 @@ const app = Vue.createApp({
         let _this = this;
 
         _this.detectIdle();
-        _this.getAlbums();               
+        _this.getAlbums(); 
+        _this.getSettingValue();              
     },
 
     methods: {
@@ -714,7 +716,7 @@ const app = Vue.createApp({
             _this.mouse_coordinate.x = ev.clientX;
             _this.mouse_coordinate.y = ev.clientY;
 
-            window.parent.postMessage(JSON.parse(JSON.stringify(_this.mouse_coordinate)), 'http://120.105.161.3:8000');
+            window.parent.postMessage(JSON.parse(JSON.stringify(_this.mouse_coordinate)), 'http://' + _this.server_ip + '/tvWall');
         },
 
         changeMouseHandClick() {
@@ -729,7 +731,7 @@ const app = Vue.createApp({
         goToFunction(url) {
             let _this = this
             
-            window.parent.postMessage(url, 'http://120.105.161.3:8000');
+            window.parent.postMessage(url , 'http://' + _this.server_ip + '/tvWall');
         },
 
         mouseEnter() {
@@ -754,6 +756,27 @@ const app = Vue.createApp({
             _this.show_album_hover_index = '20';
             _this.album_z_index = '30';
             _this.hover_block_position = '85vh';
+        },
+
+        getSettingValue() {
+            let _this = this;
+
+            $.ajax({
+                type: 'post',
+                url: './setting/getSetting',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success(resp) {
+                    if (resp.validate) {
+                        _this.server_ip = resp.server_ip;
+                        console.log(`Server IP: ${_this.server_ip}`);
+                    }
+                },
+                error(msg) {
+                    location.reload();
+                }
+            })
         },
 
         getAlbums() {
@@ -912,11 +935,11 @@ const app = Vue.createApp({
                     break;
             
                 case 74:
-                    window.parent.postMessage(JSON.parse(JSON.stringify(true)), 'http://120.105.161.3:8000');
+                    window.parent.postMessage(JSON.parse(JSON.stringify(true)), 'http://' + _this.server_ip + '/tvWall');
                     break;
 
                 case 75: 
-                    window.parent.postMessage(JSON.parse(JSON.stringify(false)), 'http://120.105.161.3:8000');
+                    window.parent.postMessage(JSON.parse(JSON.stringify(false)), 'http://' + _this.server_ip + '/tvWall');
                     break;
             }
         },

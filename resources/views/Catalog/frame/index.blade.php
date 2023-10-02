@@ -28,8 +28,8 @@ const app = Vue.createApp({
     mounted() {
         let _this = this;
 
-        _this.iframe_url = JSON.stringify(iframe_url);
-        _this.iframe_url = JSON.parse(iframe_url);
+        //_this.iframe_url = JSON.stringify(iframe_url);
+        //_this.iframe_url = JSON.parse(iframe_url);
 
         window.addEventListener('message', this.iframeEvent, false);
     },
@@ -81,6 +81,7 @@ const app = Vue.createApp({
             _this.idle_second = 0;
             _this.screen_saver_status = 'none';
         },
+
         initWebsocket() {
             let _this = this;
             

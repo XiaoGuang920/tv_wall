@@ -214,31 +214,31 @@
     </div>
 
     <div v-cloak v-if="tools_tab.status" id="tools" :style="{ opacity: tools_tab.mask_opacity }"></div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/homePage')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('home')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/home.png">
             <div class="tool-text">主頁</div>
         </div>
     </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '65%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/teacherHome')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '65%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('teacher')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/teacher.png">
             <div class="tool-text">教師列表</div>
         </div>
    </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '7%', left: '50%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/spiritGame')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '7%', left: '50%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('spiritGame')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/controller.png">
             <div class="tool-text">光速飛飛飛</div>
         </div>
     </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '75%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/tableTennisGame')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '2%', left: '75%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('tableTennis')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/table_tennis.png">
             <div class="tool-text">打桌球</div>
         </div>
     </div>
-    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('index.php?route=information/information/imgWall')">
+    <div v-cloak v-if="tools_tab.status" class="tool-choice" :style="{ top: '50%', left: '10%', opacity: tools_tab.bubbles_opacity }" @click="goToFunction('imgWall')">
         <div class="tool-choice-background">
             <img class="tool-img" src="/images/Catalog/photo_wall.png">
             <div class="tool-text">照片牆</div>
@@ -307,7 +307,7 @@ const app = Vue.createApp({
                     other_event_amount: 0,
                 }
             ],
-            loading: false,
+            loading: true,
             mouse_status: 'point',
             mouse_coordinate: {
                 x: 0,
@@ -321,7 +321,7 @@ const app = Vue.createApp({
             current_hour: 0,
             current_minute: 0,
             isload: false,
-            server_IP: ''
+            server_ip: ''
         }
     },
 
@@ -341,7 +341,7 @@ const app = Vue.createApp({
         _this.now_month = _this.now_date.getMonth() + 1;
         _this.now_day = _this.now_date.getDate();
 
-        //_this.getSettingValue();
+        _this.getSettingValue();
         _this.showAnnouncements();
         _this.generateCalendar();
         //_this.getDailyScheduleData(_this.now_year, _this.now_month, _this.now_day);
@@ -353,7 +353,8 @@ const app = Vue.createApp({
 
             _this.mouse_coordinate.x = ev.clientX;
             _this.mouse_coordinate.y = ev.clientY;
-            window.parent.postMessage(JSON.parse(JSON.stringify(_this.mouse_coordinate)), 'http://' + _this.server_IP + '/tv_wall/index.php?route=information/information/tvWall');
+
+            window.parent.postMessage(JSON.parse(JSON.stringify(_this.mouse_coordinate)), 'http://' + _this.server_ip + '/tvWall');
         },
 
         executiveFunction(ev) {
@@ -399,11 +400,11 @@ const app = Vue.createApp({
                     break;
                 
                 case 74:
-                    window.parent.postMessage(JSON.parse(JSON.stringify(true)), 'http://' + _this.server_IP + '/tv_wall/index.php?route=information/information/tvWall');
+                    window.parent.postMessage(JSON.parse(JSON.stringify(true)), 'http://' + _this.server_ip + '/tvWall');
                     break;
 
                 case 75: 
-                    window.parent.postMessage(JSON.parse(JSON.stringify(false)), 'http://' + _this.server_IP + '/tv_wall/index.php?route=information/information/tvWall');
+                    window.parent.postMessage(JSON.parse(JSON.stringify(false)), 'http://' + _this.server_ip + '/tvWall');
                     break;
             }
         },
@@ -420,7 +421,7 @@ const app = Vue.createApp({
         goToFunction(url) {
             let _this = this
             
-            window.parent.postMessage(url, 'http://' + _this.server_IP + '/tv_wall/index.php?route=information/information/tvWall');
+            window.parent.postMessage(url, 'http://' + _this.server_ip + '/tvWall');
         },
 
         getSettingValue() {
@@ -428,12 +429,14 @@ const app = Vue.createApp({
 
             $.ajax({
                 type: 'post',
-                url: 'index.php?route=information/information/getSetting',
-                success(data) {
-                    let resp = JSON.parse(data);
-
+                url: './setting/getSetting',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success(resp) {
                     if (resp.validate) {
-                        _this.server_IP = resp.server_IP;
+                        _this.server_ip = resp.server_ip;
+                        console.log(`Server IP: ${_this.server_ip}`);
                     }
                 },
                 error(msg) {
@@ -575,11 +578,11 @@ const app = Vue.createApp({
                                 _this.announcements_data.bottom_block = _this.schedule_category_detail_data.bottom_block;
                         });
                     } else {
-                        location.reload();
+                        //location.reload();
                     }
                 },
                 error(msg) {
-                    location.reload();
+                    //location.reload();
                 }
             });
         },
@@ -779,6 +782,7 @@ const app = Vue.createApp({
                     category_type_num: _this.category_type_num
                 },
                 success(resp) {
+                    console.log(resp);
                     if (resp.validate) {      
                         _this.announcements_data.top_block = [];
                         _this.announcements_data.bottom_block = [];
