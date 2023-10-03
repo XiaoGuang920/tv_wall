@@ -1,4 +1,4 @@
-<p align="center">Wall手言合–多樣互動式展示牆</p>
+<p align="center" style="font-size: 26px; font-weight: 800; padding: 2em; color: #8ECDDD; letter-spacing: 3px;">Wall手言合–多樣互動式展示牆</p>
 
 ## 關於Wall手言合–多樣互動式展示牆
 
@@ -14,7 +14,6 @@ Wall手言合–多樣互動式展示牆是擁有多樣互動方式的沉浸式�
 | D | 公告列表頁切換下一批公告 |
 | L | 公告列表頁切換下一月行事歷 |
 | R | 公告列表頁切換下一批日程表 |
-| :----: | :---- |
 
 ### 展示DEMO連結
 
