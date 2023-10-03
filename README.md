@@ -1,5 +1,3 @@
-<p align="center" style="font-size: 26px; font-weight: 800; padding: 2em; color: #8ECDDD; letter-spacing: 3px;">Wall手言合–多樣互動式展示牆</p>
-
 ## 關於Wall手言合–多樣互動式展示牆
 
 Wall手言合–多樣互動式展示牆是擁有多樣互動方式的沉浸式電視牆，能透過肢體控制、觸控以及語音控制來操作，再加上全息投影使本電視牆更加有人味，
