@@ -344,7 +344,7 @@ const app = Vue.createApp({
         _this.getSettingValue();
         _this.showAnnouncements();
         _this.generateCalendar();
-        //_this.getDailyScheduleData(_this.now_year, _this.now_month, _this.now_day);
+        _this.getDailyScheduleData(_this.now_year, _this.now_month, _this.now_day);
     },
 
     methods: {
@@ -450,17 +450,18 @@ const app = Vue.createApp({
 
                 $.ajax({
                     type: 'post',
-                    url: 'index.php?route=information/information/getAnnouncementDetail',
+                    url: './announcement/getAnnouncementDetail',
                     data: {
-                        announcement_id: announcement_id
+                        announcement_id: announcement_id,
+                        _token: '{{ csrf_token() }}'
                     },
-                    success(data) {
-                        let resp = JSON.parse(data);
-
-                        _this.announcement_detail_frame.announcement_detail_data = resp.announcement_detail;
-                        _this.announcement_detail_frame.show_status = true;
-                        _this.announcement_detail_frame.text_show = true;
-                        _this.announcement_detail_frame_img.show = true;
+                    success(resp) {
+                        if (resp.validate) {
+                            _this.announcement_detail_frame.announcement_detail_data = resp.announcement_detail;
+                            _this.announcement_detail_frame.show_status = true;
+                            _this.announcement_detail_frame.text_show = true;
+                            _this.announcement_detail_frame_img.show = true;
+                        }
                     },
                     error(msg) {
                         location.reload();
@@ -485,6 +486,7 @@ const app = Vue.createApp({
             _this.date_day = date_day;
             _this.isload = true;
             _this.show_ghost = false;
+
             if (_this.date_day == _this.now_date.getDate()) {
                 _this.now_hour = _this.now_date.getHours();
                 _this.now_minute = _this.now_date.getMinutes();
@@ -499,32 +501,22 @@ const app = Vue.createApp({
                 _this.date_day = '-' + date_day;
             }
 
-            if (_this.now_hour < 10) {
-                _this.now_hour = ' 0' + _this.now_hour;
-            } else {
-                _this.now_hour = ' ' + _this.now_hour;
-            }
-
-            if (_this.now_minute < 10) {
-                _this.now_minute = '-0' + _this.now_minute;
-            } else {
-                _this.now_minute = '-' + _this.now_minute;
-            }
+            _this.now_hour = _this.now_hour < 10 ? ' 0' + _this.now_hour : ' ' + _this.now_hour;
+            _this.now_minute = _this.now_minute < 10 ? ':0' + _this.now_minute : ':' + _this.now_minute;
 
             _this.schedule_load_position = 0;
             _this.daily_schedule_data = '';
 
             $.ajax({
                 type: 'post',
-                url: 'index.php?route=information/information/getDailyScheduleData',
+                url: './announcement/getDailyScheduleData',
                 data: {
                     date: _this.date_year + '' + _this.date_month + _this.date_day,
                     date_time: _this.now_hour + _this.now_minute,
-                    schedule_load_position: _this.schedule_load_position
+                    schedule_load_position: _this.schedule_load_position,
+                    _token: '{{ csrf_token() }}'
                 },
-                success(data) {
-                    let resp = JSON.parse(data);
-                    
+                success(resp) {
                     if (resp.daily_schedule_data == '' && resp.validate) {
                         _this.daily_schedule_data = resp.daily_schedule_data;
                         setTimeout(function() {
@@ -551,13 +543,12 @@ const app = Vue.createApp({
             
             $.ajax({
                 type: 'post',
-                url: 'index.php?route=information/information/getScheduleDetail',
+                url: './announcement/getScheduleDetail',
                 data: {
-                    announcement_id: announcement_id
+                    announcement_id: announcement_id,
+                    _token: '{{ csrf_token() }}'
                 },
-                success(data) {
-                    let resp = JSON.parse(data);
-                    
+                success(resp) {
                     if (resp.validate) {
                         _this.schedule_category_detail_data.top_block = [];
                         _this.schedule_category_detail_data.bottom_block = [];             
@@ -577,12 +568,10 @@ const app = Vue.createApp({
                                 _this.announcements_data.top_block = _this.schedule_category_detail_data.top_block;
                                 _this.announcements_data.bottom_block = _this.schedule_category_detail_data.bottom_block;
                         });
-                    } else {
-                        //location.reload();
                     }
                 },
                 error(msg) {
-                    //location.reload();
+                    location.reload();
                 }
             });
         },
@@ -592,17 +581,17 @@ const app = Vue.createApp({
 
             $.ajax({
                 type: 'post',
-                url: 'index.php?route=information/information/getCategoryAnnouncements',
+                url: './announcement/getCategoryAnnouncements',
                 data: {
                     category_type_num: category_type_num,
-                    load_start_place: 0
+                    load_start_place: 0,
+                    _token: '{{ csrf_token() }}'
                 },
-                success(data) {
-                    let resp = JSON.parse(data);                
-
+                success(resp) {
                     if (resp.validate) {      
                         _this.category_announcement_data.top_block = [];
                         _this.category_announcement_data.bottom_block = [];             
+                        
                         resp.category_announcement_data.forEach(function(category, index) {
                             if (index < 6) {
                                 let rotate = Math.floor(Math.random() * 11) - 5;
@@ -613,9 +602,14 @@ const app = Vue.createApp({
                                 category.rotate = rotate;
                                 _this.category_announcement_data.bottom_block.push(category);
                             }
-                                _this.announcements_data.top_block = _this.category_announcement_data.top_block;
-                                _this.announcements_data.bottom_block = _this.category_announcement_data.bottom_block;
+                                
+                            _this.announcements_data.top_block = _this.category_announcement_data.top_block;
+                            _this.announcements_data.bottom_block = _this.category_announcement_data.bottom_block;
+
+                            _this.category_announcement_data = JSON.parse(JSON.stringify(_this.category_announcement_data));
+                            _this.announcements_data = JSON.parse(JSON.stringify(_this.announcements_data));
                         });
+                        
                         _this.category_type_num = category_type_num;
                         _this.load_start_place = 0;
                     } else {
@@ -635,14 +629,13 @@ const app = Vue.createApp({
 
             $.ajax({
                 type: 'post',
-                url: 'index.php?route=information/information/getNextCategoryAnnouncements',
+                url: './announcement/getNextCategoryAnnouncements',
                 data: {
                     category_type_num: _this.category_type_num,
                     load_start_place: _this.load_start_place,
+                    _token: '{{ csrf_token() }}'
                 },
-                success(data) {
-                    let resp = JSON.parse(data);                
-
+                success(resp) {
                     if (resp.validate) {   
                         _this.announcements_data.top_block = [];
                         _this.announcements_data.bottom_block = [];
@@ -660,8 +653,6 @@ const app = Vue.createApp({
                         });   
 
                         _this.load_start_place = resp.load_start_place;
-                    } else {
-                        location.reload();
                     }
                 },
                 error(msg) {
@@ -683,17 +674,8 @@ const app = Vue.createApp({
                 _this.current_minute = 0;
             }
 
-            if (_this.current_hour < 10) {
-                _this.current_hour = ' 0' + _this.current_hour;
-            } else {
-                _this.current_hour = ' ' + _this.current_hour;
-            }
-
-            if (_this.current_minute < 10) {
-                _this.current_minute = '-0' + _this.current_minute;
-            } else {
-                _this.current_minute = '-' + _this.current_minute;
-            }
+            _this.current_hour = _this.current_hour < 10 ? ' 0' + _this.current_hour : ' ' + _this.current_hour;
+            _this.current_minute = _this.current_minute < 10 ? ':0' + _this.current_minute : ':' + _this.current_minute;
 
             _this.schedule_load_position = parseInt(_this.schedule_load_position) + 4;
             _this.daily_schedule_data = '';
@@ -702,15 +684,14 @@ const app = Vue.createApp({
             
             $.ajax({
                 type: 'post',
-                url: 'index.php?route=information/information/getNextScheduleData',
+                url: './announcement/getNextScheduleData',
                 data: {
                     date: _this.date_year + '' + _this.date_month + _this.date_day,
                     date_time: _this.current_hour + _this.current_minute,             
-                    schedule_load_position: _this.schedule_load_position                       
+                    schedule_load_position: _this.schedule_load_position,
+                    _token: '{{ csrf_token() }}'                     
                 },
-                success(data) {
-                    let resp = JSON.parse(data);                
-
+                success(resp) {
                     if (resp.daily_schedule_data == '' && resp.validate) {
                         _this.daily_schedule_data = '';
                         setTimeout(function() {
@@ -724,9 +705,7 @@ const app = Vue.createApp({
                         setTimeout(function() {
                             _this.isload = false;
                             _this.daily_schedule_data = resp.daily_schedule_data;
-                        }, 1000);          
-                    } else {
-                        location.reload();                        
+                        }, 1000);                                 
                     }
                 },
                 error(msg) {
@@ -742,8 +721,8 @@ const app = Vue.createApp({
                 type: 'post',
                 url: './announcement/generateCalendar',
                 data: {
-                    _token: '{{ csrf_token() }}',
-                    gen_next_month: _this.gen_next_month              
+                    gen_next_month: _this.gen_next_month,
+                    _token: '{{ csrf_token() }}'            
                 },
                 success(resp) {
                     if (resp.validate) {      
@@ -760,8 +739,6 @@ const app = Vue.createApp({
                         } else {
                             _this.gen_next_month = 'no';
                         }
-                    } else {
-                        location.reload();
                     }
                 },
                 error(msg) {
@@ -782,7 +759,6 @@ const app = Vue.createApp({
                     category_type_num: _this.category_type_num
                 },
                 success(resp) {
-                    console.log(resp);
                     if (resp.validate) {      
                         _this.announcements_data.top_block = [];
                         _this.announcements_data.bottom_block = [];
@@ -800,8 +776,6 @@ const app = Vue.createApp({
                             }                  
                         });
                         _this.load_start_place = 0;
-                    } else {
-                        location.reload();
                     }
                 },
                 error(msg) {

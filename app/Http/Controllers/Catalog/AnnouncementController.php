@@ -11,7 +11,15 @@ use Illuminate\Support\Facades\Log;
 
 class AnnouncementController extends Controller
 {
-    public function index() {
+    protected $model_announcement;
+
+	public function __construct(ModelsAnnouncement $model_announcement) 
+	{
+		$this->model_announcement = $model_announcement;
+	}
+	
+	public function index() 
+	{
         $header = app('App\Http\Controllers\Catalog\HeaderController')->index();
         $footer = app('App\Http\Controllers\Catalog\FooterController')->index();;
 
@@ -21,10 +29,11 @@ class AnnouncementController extends Controller
         ]);
     }
 
-    public function getAnnouncements(Request $request) {
+    public function getAnnouncements(Request $request) 
+	{
         $resp = array(
 			'announcements_data' => array(),
-			'validate' => false
+			'validate'           => false
 		);
 
         $load_start_place = $request->input('load_start_place');
@@ -37,8 +46,8 @@ class AnnouncementController extends Controller
         foreach ($announcements_data as $announcement) {
             $resp['announcements_data'][] = [
                 'announcement_id' => $announcement->announcement_id,
-				'title' => $announcement->title,
-				'upload_time' => $announcement->upload_time
+				'title'           => $announcement->title,
+				'upload_time'     => $announcement->upload_time
             ];
         }
 
@@ -47,12 +56,13 @@ class AnnouncementController extends Controller
         return response()->json($resp);
     }
 
-    public function generateCalendar(Request $request) {
+    public function generateCalendar(Request $request) 
+	{
 		$resp = array(
 			'calendar_month' => array(),
-			'current_year' => '',
-			'current_month' => '',
-			'validate' => false
+			'current_year'   => '',
+			'current_month'  => '',
+			'validate'       => false
 		);
 
         $gen_next_month = $request->input('gen_next_month');
@@ -239,8 +249,8 @@ class AnnouncementController extends Controller
 			$calendar_today_date2 = $calendar_month[$month_start_day + $d - 1]['date_year'] . '-' . $calendar_month[$month_start_day + $d -1]['date_month'] . '-' . $date_nextday;
 			
             $calendar_date_event_data = $model_announcement->getCalendarEvent($calendar_today_date, $calendar_today_date2);
-			foreach($calendar_date_event_data as $event) {
-				switch ($event['category_type']) {
+			foreach ($calendar_date_event_data as $event_category_type) {
+				switch ($event_category_type) {
 					case 1:
 						$calendar_month[$month_start_day + $d - 1]['date_event_show'] = true;					
 						$calendar_month[$month_start_day + $d - 1]['teach_event_amount'] += 1;													
@@ -279,7 +289,222 @@ class AnnouncementController extends Controller
 		$resp['current_year'] = $current_year;
 		$resp['current_month'] = $current_month;
 
-        Log::debug($resp);
+		return response()->json($resp);
+	}
+
+	public function getAnnouncementDetail(Request $request) 
+	{
+		$resp = array(
+			'announcement_detail' => null,
+			'validate'            => false
+		);
+
+		if (isset($request->announcement_id) && $request->announcement_id) {
+			$announcement_id = $request->announcement_id;
+		} else {
+			$announcement_id = '';
+		}
+
+		if ($announcement_id) {
+			$announcement_detail = $this->model_announcement->getAnnouncementDetail($announcement_id);
+			foreach($announcement_detail as $announcement) {
+				$resp['announcement_detail'] = array(
+					'title'       => $announcement->title,
+					'upload_time' => $announcement->upload_time,
+					'author'      => $announcement->author,
+					'content'     => $announcement->content,
+					'image'       => $announcement->image,
+					'start_time'  => $announcement->start_time,
+					'end_time'    => $announcement->end_time
+				);
+			}
+
+			$resp['validate'] = true;
+		}
+
+		return response()->json($resp);
+	}
+
+	public function getDailyScheduleData(Request $request) 
+	{
+		$resp = array(
+			'daily_schedule_data' => array(),
+			'validate'            => false
+		);
+		
+		if (isset($request->date) && $request->date && isset($request->date_time) && $request->date_time && isset($request->schedule_load_position) && $request->schedule_load_position !== 0) {
+			//$date = $request->date . ' ' . $request->date_time;
+			$date = $request->date;
+			$date2 = date('Y-m-d', strtotime($request->date . ' + 1 day'));
+			$schedule_load_position = $request->schedule_load_position;
+		} else {
+			$date = date('Y-m-d');
+			$date2 = date('Y-m-d', strtotime($date . ' + 1 day'));
+			$schedule_load_position = 0;
+		}
+
+		if ($date && $date2 && $schedule_load_position !== '') {
+			$daily_schedule = $this->model_announcement->getScheduleData($date, $date2, $schedule_load_position);
+			foreach ($daily_schedule as $schedule) {
+				$schedule->start_time = date('H:i', strtotime($schedule->start_time));
+				$temp_daily_schedule = array(
+					'announcement_id' => $schedule->announcement_id,
+					'title'           => $schedule->title,
+					'content'         => $schedule->content,
+					'start_time'      => $schedule->start_time
+				);
+
+				$resp['daily_schedule_data'][] = $temp_daily_schedule;
+			}
+			
+			$resp['validate'] = true;
+		}
+
+		return response()->json($resp);
+	}
+
+	public function getCategoryAnnouncements(Request $request) 
+	{
+		$resp = array(
+			'category_announcement_data' => array(),
+			'validate'                   => false
+		);
+
+		if (isset($request->category_type_num) && $request->category_type_num) {
+			$category_type_num = $request->category_type_num;
+		} else {
+			$category_type_num = '';
+		}
+		if (isset($request->load_start_place) && $request->load_start_place !== '') {
+			$load_start_place = $request->load_start_place;
+		} else {
+			$load_start_place = '';
+		}
+
+		if ($category_type_num && $load_start_place !== 0) {
+			$category_announcement = $this->model_announcement->getCategoryAnnouncementsData($category_type_num, $load_start_place);
+			foreach($category_announcement as $category) {
+				$temp_category_announcement = array(
+					'announcement_id' => $category->announcement_id,
+					'title'           => $category->title,
+					'upload_time'     => $category->upload_time
+				);
+
+				$resp['category_announcement_data'][] = $temp_category_announcement;
+			}
+
+			$resp['validate'] = true;
+		}
+
+		return response()->json($resp);
+	}
+
+	public function getScheduleDetail(Request $request) 
+	{
+		$resp = array(
+			'schedule_category_detail_data' => array(),
+			'validate'                      => false
+		);
+
+		if (isset($request->announcement_id) && $request->announcement_id) {
+			$announcement_id = $request->announcement_id;
+		} else {
+			$announcement_id = '';
+		}
+
+		if ($announcement_id) {
+			$schedule_category_detail = $this->model_announcement->getScheduleCategoryDetail($announcement_id);
+			foreach ($schedule_category_detail as $schedule) {
+				$temp_schedule_category_detail = array(
+					'announcement_id' => $schedule->announcement_id,
+					'title'           => $schedule->title,
+					'upload_time'     => $schedule->upload_time
+				);
+				
+				$resp['schedule_category_detail_data'][] = $temp_schedule_category_detail;
+			}
+
+			$resp['validate'] = true;
+		}
+
+		return response()->json($resp);
+	}
+
+	public function getNextCategoryAnnouncements(Request $request)
+	{
+		$resp = array(
+			'announcements_data' => array(),
+			'load_start_place'   => '',
+			'validate'           => false
+		);
+
+		if (isset($request->category_type_num) && $request->category_type_num) {
+			$category_type_num = $request->category_type_num;
+		} else {
+			$category_type_num = '';
+		}
+		if (isset($request->load_start_place) && $request->load_start_place) {
+			$load_start_place = $request->load_start_place;
+		} else {
+			$load_start_place = '';
+		}
+
+		if ($category_type_num && $load_start_place !== '') {
+			$announcements_data = $this->model_announcement->getCategoryAnnouncementsData($category_type_num, $load_start_place);
+			foreach ($announcements_data as $announcement) {
+				$temp_announcement_data = array(
+					'announcement_id' => $announcement->announcement_id,
+					'title'           => $announcement->title,
+					'upload_time'     => $announcement->upload_time
+				);
+				
+				$resp['announcements_data'][] = $temp_announcement_data;
+			}
+		
+			$resp['load_start_place'] = $this->model_announcement->getCategoryAnnouncementsDataAmount($category_type_num, $load_start_place);
+
+			$resp['validate'] = true;
+		}
+
+		return response()->json($resp);
+	}
+
+	public function getNextScheduleData(Request $request)
+	{
+		$resp = array(
+			'daily_schedule_data'    => array(),			
+			'schedule_load_position' => '',
+			'validate'               => false
+		);
+
+		if (isset($request->date) && $request->date && isset($request->date_time) && $request->date_time && isset($request->schedule_load_position) && $request->schedule_load_position !== '') {
+			$date = $request->date . $request->date_time;
+			$date2 = date('Y-m-d', strtotime($request->date. ' + 1 day'));
+			$schedule_load_position = $request->schedule_load_position;
+		} else {
+			$date = date('Y-m-d');
+			$date2 = date('Y-m-d', strtotime($date. ' + 1 day'));
+			$schedule_load_position = 0;
+		}
+
+		if ($date && $date2 && $schedule_load_position !== '') {
+			$daily_schedule_data = $this->model_announcement->getScheduleData($date, $date2, $schedule_load_position);
+			foreach ($daily_schedule_data as $schedule) {
+				$schedule->start_time = date('H:i', strtotime($schedule->start_time));
+				$temp_daily_schedule_data = array(					
+					'announcement_id' => $schedule->announcement_id,
+					'title'           => $schedule->title,
+					'content'         => $schedule->content,
+					'start_time'      => $schedule->start_time
+				);
+				
+				$resp['daily_schedule_data'][] = $temp_daily_schedule_data;
+			}
+
+			$resp['schedule_load_position'] = $this->model_announcement->getScheduleDataAmount($date, $date2, $schedule_load_position);
+
+			$resp['validate'] = true;
+		}
 
 		return response()->json($resp);
 	}

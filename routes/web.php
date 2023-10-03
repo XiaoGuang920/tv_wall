@@ -58,6 +58,12 @@ Route::post('/imgWall/getPictureDetailData', [ImgWallController::class, 'getPict
 Route::get('/announcement', [AnnouncementController::class, 'index']);
 Route::post('/announcement/getAnnouncements', [AnnouncementController::class, 'getAnnouncements']);
 Route::post('/announcement/generateCalendar', [AnnouncementController::class, 'generateCalendar']);
+Route::post('/announcement/getAnnouncementDetail', [AnnouncementController::class, 'getAnnouncementDetail']);
+Route::post('/announcement/getDailyScheduleData', [AnnouncementController::class, 'getDailyScheduleData']);
+Route::post('/announcement/getCategoryAnnouncements', [AnnouncementController::class, 'getCategoryAnnouncements']);
+Route::post('/announcement/getScheduleDetail', [AnnouncementController::class, 'getScheduleDetail']);
+Route::post('/announcement/getNextCategoryAnnouncements', [AnnouncementController::class, 'getNextCategoryAnnouncements']);
+Route::post('/announcement/getNextScheduleData', [AnnouncementController::class, 'getNextScheduleData']);
 
 Route::get('/tableTennis', [TableTennisController::class, 'index']);
 
