@@ -7,7 +7,7 @@
     <div class="picture-row">
         <div v-cloak class="picture-block comet" v-for="picture in pictures_data">
             <figure class="picture-border" @click="showFrame(picture.picture_id)">
-                <img :src="picture.url" :style="{ transform: 'rotate(' +  0 + 'deg)' }" class="picture-img">
+                <img :src="picture.url" class="picture-img">
             </figure>
         </div> 
     </div>

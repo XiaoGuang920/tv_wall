@@ -15,6 +15,6 @@ Wall手言合–多樣互動式展示牆是擁有多樣互動方式的沉浸式�
 
 ### 展示DEMO連結
 
-- **[專案介紹及展示書](https://tighten.co)**
-- **[前台功能展示影片](https://vehikl.com/)**
-- **[後台管理功能展示影片](https://tighten.co)**
+- **[專案介紹及展示書](https://drive.google.com/file/d/1YeOlbLwe-iSXhIEWeN0j5tllh-GXHjzr/view?usp=sharing)**
+- **[前台功能展示影片](https://drive.google.com/file/d/1nS0Q91YYghqjg1ze6j1U4SksMBcYqU7F/view?usp=sharing)**
+- **[後台管理功能展示影片](https://drive.google.com/file/d/1QMCeb6E0n7dtKpVdL922-kp-b09lQwbe/view?usp=sharing)**

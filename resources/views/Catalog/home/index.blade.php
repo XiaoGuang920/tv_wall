@@ -185,7 +185,7 @@ const app = Vue.createApp({
             min_tem: '',
             max_tem: '',
             avg_tem: '',
-            aqi_status: '',
+            aqi_status: '普通',
             uvi: '',
             mouse_status: 'point',
             mouse_coordinate: {
@@ -397,14 +397,17 @@ const app = Vue.createApp({
                     city: _this.location
                 },
                 success(resp) {
-                    console.log(resp);
-                    _this.aqi_status = resp.uvi_and_aqi.aqi_status;
+                    if (typeof(resp) == Object) {
+                        _this.aqi_status = resp.uvi_and_aqi.aqi_status;
 
-                    if (_this.aqi_status == '對敏感族群不健康' || _this.aqi_status == '對所有族群不健康'){ 
-                        _this.aqi_status = '不健康';
+                        if (_this.aqi_status == '對敏感族群不健康' || _this.aqi_status == '對所有族群不健康'){ 
+                            _this.aqi_status = '不健康';
+                        }
+
+                        _this.uvi = resp.uvi_and_aqi.uv;
+                    } else {
+                        _this.aqi_status = '普通';
                     }
-
-                    _this.uvi = resp.uvi_and_aqi.uv;
                 },
                 error(msg) {
                     location.reload();
