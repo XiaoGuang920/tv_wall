@@ -90,7 +90,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            學歷 <transition name="hint"><span v-cloak v-show="education_list.length > 0" class="hint">(點擊專長色塊即可刪除該專長)</span></transition>
+                            學歷 <transition name="hint"><span v-cloak v-show="education_list.length > 0" class="hint">(點擊學歷色塊即可刪除該學歷)</span></transition>
                             <div class="add-list-block">
                                 <input v-cloak v-model="push_education" class="data-input" placeholder="請輸入要新增的學歷">
                                 <button class="insert-btn" @click="addEducation()">新增</button> 
